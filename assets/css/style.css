@@ -38,6 +38,10 @@ img { max-width: 100%; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 70px; }
 .nav__brand { font: 300 24px "Lato", sans-serif; color: var(--white); text-decoration: none; }
 .nav__brand span { font-weight: 700; color: var(--accent); }
+.nav__id { display: flex; align-items: center; gap: 16px; }
+.nav__social { display: inline-flex; gap: 12px; }
+.nav__social a { display: inline-flex; color: var(--white); opacity: .8; transition: opacity .2s; }
+.nav__social a:hover { opacity: 1; }
 .nav__links { display: flex; gap: 28px; }
 .nav__links a {
   color: var(--white); text-decoration: none; font: 700 13px "Lato", sans-serif;
