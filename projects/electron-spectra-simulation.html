@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulation of Electron Spectra for Surface Analysis | Florian Simperl</title>
+  <meta name="description" content="Simulation of electron spectra for surface analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+
+</head>
+<body>
+
+  <header class="nav is-solid" id="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">Florian<span>Simperl</span></a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#references">References</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-head">
+    <div class="container">
+      <h1>Simulation of Electron Spectra for Surface Analysis</h1>
+      <p>A Monte Carlo simulation package for electron transport in solids for photoelectron and electron spectroscopy</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <a href="../index.html#projects" class="back">&larr; Back to projects</a>
+
+      <div class="detail">
+        <div>
+          <h2>Overview</h2>
+          <p>The Simulation of Electron Spectra for Surface Analysis is a 25-year-old simulation software distributed as the NIST Standard Reference Database 100. Originally, it was developed by my PhD supervisor Professor Wolfgang Werner together with Dr. Werner Smekal and Dr. Cedric J. Powell from NIST. As part of my PhD at the Institute of Applied Physics at TU Wien, I led the further development of the software, implementing a Python interface, high-performance computing code, updated databases and NeXus-based data output.</p>
+
+          <h2>Underlying Physics</h2>
+          <p>I developed the key functionalities in the software related to X-ray photoelectron spectroscopy (XPS), which is a surface-sensitive materials characterisation technique that allows probing the first few nanometres of a material and study its interaction with the environment. It is an indispensable analytical technique that is used in an industrial and research context from semiconductor industry and battery research to drug development and palaeontology. The underlying physics is based on the photoelectric effect (Albert Einstein's Nobel Prize in 1921) where the incoming X-ray leads to the ejection of a so-called photoelectron (and a cascade of Auger-Meitner electrons). Based on the binding energy of the electron in the solid we can report a spectrum by measuring the kinetic energy of the excited core-level electron (see Figure 1). Each peak in the spectrum corresponds to photoelectrons from a specific core level in the electronic structure of the solid. Using such a spectrum it is possible to quantify among others layer thicknesses, chemical states or surface contaminations. In Figure 2 an example of individual chemical states in the carbon 1s peak of PMMA (<a href="https://doi.org/10.1038/s41598-017-13549-z">Pletincx et al. (2017)</a>) is shown, allowing us to quantify the chemical composition of the compound.</p> 
+          
+          <h2>Simulation Procedure</h2>
+          <p>At the core of the software sits the partial intensity approach pioneered by Wolfgang Werner (<a href="https://doi.org/10.1002/sia.740231103">Werner (1995)</a>, <a href="https://doi.org/10.3389/fmats.2023.1202456">Werner (2023)</a>). This approach enables an efficient calculation of the spectral background comprised of inelastically scattered electrons. To apply a Monte Carlo simulation step, three key assumptions need to be introduced: (i) the correlation relaxation principle, which states that the inter-particle correlations may be neglected whenever the correlation length is small compared to the mean free path. This is satisfied for amorphous solids in the medium-energy regime; (ii) the binary encounter approximation is invoked for elastic scattering, whereby collisions involving three or more particles simultaneously are disregarded; (iii) within the quasi-elastic energy regime, only a small number of inelastic collisions occur over path lengths short enough for the inelastic mean free path making the energy loss process effectively independent of the incident electron energy. Under these three conditions the transport equation governing the particle flux density takes the form of the linearised Boltzmann equation. Based on these assumptions the total particle flux density (the measured spectrum) can then be expressed as a sum of correlated sequences of scattering events that collectively give rise to both angular deflections (elastic scattering) and energy losses (inelastic scattering). The spectrum can then be interpreted as a sum of the energy distribution after n-fold scattering events multiplied with a weighting factor that describes the number of n-fold inelastically scattered particles which are the partial intensities. The Monte Carlo simulation is used in the calculation of the underlying integrals of the partial intensities where a random number generator produces a distribution of step lengths between scattering events. For computational efficiency, the reciprocity theorem introduced by <a href="https://doi.org/10.1016/0016-0032(68)90044-6">Case and Zweifel (1967)</a> for one-speed particle transport is invoked, which states that source and detector can be interchanged provided that the propagation directions are simultaneously reversed. A schematic detailing the simulation principle is shown in Figure 3, where $s_k$ is the sampled step length, $L_n(E)$ the energy loss function, $\Omega$ the angular components of the elastic scattering event, and $\Delta \Omega$ the solid angle of the detector. </p>
+
+          <h2>Application</h2>
+          <p>In the following, a selected list of possible applications of SESSA to quantitative XPS is given:
+            <ul>
+              <li>Surface layer thickness quantification (<a href="https://doi.org/10.1017/S1551929516000109">Baer et al. (2016)</a>)</li>
+              <li>Sample structure prediction from XPS data using Bayesian estimation (<a href="https://doi.org/10.1016/j.elspec.2023.147370">Shinotsuka et al. (2022)</a>) </li>
+              <li>Training a Transformer-based neural network for automated high-throughput quantitative XPS (<a href="https://doi.org/10.1063/5.0296600">Simperl and Werner (2025)</a>) </li>
+              <li>Data-driven surrogate model for XPS (<a href="https://doi.org/10.1016/j.elspec.2026.147612">Yoneda et al. (2026)</a>) </li>
+              <li>Analysis of the electrical double layer using electrochemical X-ray photoelectron spectroscopy (<a href="https://doi.org/10.1016/j.electacta.2026.149132">Louisia et al. (2026)</a>)</li>
+              <li>Attenuation length measurements over a wide energy range using the overlayer method (<a href="https://doi.org/10.1116/6.0001261">Werner and Powell (2021)</a>)</li>
+              <li>Quantitative analysis of surface impurities on multilayered materials (<a href="https://doi.org/10.1116/6.0001261">Werner and Powell (2021)</a>)</li>
+              <li>Analysis of ionic liquids for determination of the analyser transmission function (<a href="https://doi.org/10.1116/6.0001261">Werner and Powell (2021)</a>)</li>
+              <li>Simulation of the inelastic background for hard X-rays with and without polarisation (<a href="https://doi.org/10.1116/6.0001261">Werner and Powell (2021)</a>)</li>
+              <li>Analysis of core-shell nanoparticles (<a href="https://doi.org/10.1116/6.0001261">Werner and Powell (2021)</a>)</li>
+            </ul>
+          </p>
+
+          <h2>Gallery</h2>
+          <div class="gallery">
+            <figure class="wide">
+              <img src="../assets/img/projects/xps_schematic.jpg" alt="XPS schematic"  style="aspect-ratio:auto">
+              <figcaption>Figure 1: Schematic illustration of a typical XPS measurement device and an example spectrum of Cu(111) (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/pmma_example.jpg" alt="PMMA chemical states"  style="aspect-ratio:auto">
+              <figcaption>Figure 2: Chemical states of PMMA in the carbon 1s peak (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/trajectory_simulation.jpg" alt="SESSA trajectory simulation"  style="aspect-ratio:auto">
+              <figcaption>Figure 3: Particle trajectory simulation in SESSA (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <ul class="facts">
+          <li><strong>Role</strong>Lead developer</li>
+          <li><strong>Year</strong>2023-ongoing</li>
+          <li><strong>Tools</strong>Python and C++</li>
+          <li><strong>Links</strong><a href="https://www.nist.gov/srd/nist-standard-reference-database-100">Software</a> &middot; <a href="https://www.nist.gov/publications/nist-national-standard-reference-data-series-nist-nsrds-100-simulation-electron-spectra">Manual</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Florian Simperl. All rights reserved.</span>
+      <span class="social"><a href="https://github.com/floriansimperl">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/projects.js"></script>
+  <script src="../assets/js/blog.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+</body>
+</html>

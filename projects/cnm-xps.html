@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carbon nanomembrane fingerprints in XPS | Florian Simperl</title>
+  <meta name="description" content="Simulation of electron spectra for surface analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+
+</head>
+<body>
+
+  <header class="nav is-solid" id="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">Florian<span>Simperl</span></a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#references">References</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-head">
+    <div class="container">
+      <h1>Carbon nanomembrane fingerprints in XPS</h1>
+      <p>Revealing Chemical States in Carbon Nanomembranes from XPS Data Using Atomistic Simulations</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <a href="../index.html#projects" class="back">&larr; Back to projects</a>
+
+      <div class="detail">
+        <div>
+          <h2>Overview</h2>
+          <p>Nanometre-thin carbon nanomembranes (CNMs) belong to a broad class of materials that potentially have a wide range of applications, from fuel cells (<a href="https://doi.org/10.1021/acsnano.0c02496">Griffin et al. (2020)</a>) and energy storage (<a href="https://doi.org/10.1002/aenm.202100666">Rajendran et al. (2021) </a>, <a href="https://doi.org/10.1002/smll.202303625"> Rajendran et al. (2023)</a>) to nanofiltration (<a href="https://doi.org/10.1021/acsnano.8b01266"> Yang et al. (2018)</a>, <a href="https://doi.org/10.1039/C9NR05537A">Van Deursen et al. (2019)</a>), and water desalination (<a href="https://doi.org/10.1002/adma.201907850"> Yang et al. (2020)</a>). Free-standing CNMs are typically produced via electron irradiation-induced crosslinking of a self-assembled monolayer (SAM) composed of aromatic organic precursor molecules, such as biphenylthiol (BPT) or terphenylthiol (TPT). The ordered self-assembled monolayer arises as a result of the intermolecular interactions between the substrate atoms, typically gold or silver, and the thiol (-SH) group on the monomers. The cross-linking process can be performed with X-ray radiation or electron bombardment (see Figure 1). This process results in nanometre-thin carbon nanomembranes. By selective cleavage of the anchor group-substrate bond, or by dissolving the substrate after cross-linking it is possible to transfer the CNM onto a new substrate or support material as a free-standing carbon sheet. It is assumed that such a carbon network is reactive when exposed to the atmosphere, where the structure would be stabilised by hydrogen and oxygen groups. It is exactly this process that we aim to investigate in more detail using atomistic simulations and core-electron binding energy predictions by comparing it to experimental XPS measurements of pristine and atmosphere-exposed CNMs. To achieve this on a molecular level we designed the CarbOx code with added XPS-inspired functionalises.</p>
+
+          <h2>Structural Properties and Atomistic Modelling</h2>
+          <p>Structurally, CNMs are generally described as amorphous or non-crystalline carbon materials, characterised by their low Young's modulus and selective permeability to gases and water molecules. In contrast to crystalline carbon allotropes such as graphite and fullerenes, CNMs exhibit comparatively lower mechanical stiffness, with reported tensile moduli in the range of 6–12 GPa and ultimate tensile strengths between 400 and 700 MPa, depending on the molecular structure of the precursor. In this work the CNM structures were generated using the LAMMPS package together with an in-house MD simulation code (<a href="https://github.com/Fuzz-Muffin/carbon-EDIP">Vuković (2025)</a>) based on the environment-dependent interaction potential (EDIP). The set of CNMs in Figure 2 were generated using an exclusion cylinder molecular dynamics simulation method to model various pore arrangements and real pore density (<a href="https://doi.org/10.1021/acs.jpcc.5c08242"> Vuković et al. (2025)</a>). The method enforces a target porosity by placing a number of cylinders perpendicular to the membrane plane within the unit cell and forbidding carbon atoms from entering these regions during the structural evolution. The cylinder positions are first relaxed by a hard-sphere-like dynamics to give an approximately homogeneous distribution. The carbon network is then evolved through region-restricted molecular dynamics, in which any atom entering the cylinder is reflected. As shown in Figure 2 the complete set of structures that we compare to our experimental data consists of nine unique cylinder configurations containing between 0 and 150 pores representing a pore density between 0.0 and 0.84 per nm$^2$. In the final step of the MD simulation, a thermostat with a linear heating rate of 270 K/ps is applied, reaching a maximum temperature of 3000 K after 10 ps. From this, nine additional structures were saved after 0, 1, 4, 9, 16, 25, 36, 49, and 64 ps. The simulated configurations consist of 13000 to 14000 atoms in a fully periodic unit cell of dimensions 135 × 135 × 12 $\AA^3$ based on the estimated TPT SAM density of ~1.3 g/cm$^3$. The carbon atoms in Figure 2 are coloured according to their coordination (or number of bonded neighbours), with <em>sp</em> in yellow, <em>sp$^2$</em> in blue and <em>sp$^3$</em> in magenta.</p>
+
+          <h2>XPS-Inspired Carbon Functionalisation and CEBE Prediction</h2>
+          <p>To improve our understanding of carbon nanomembranes and their reactivity when exposed to atmospheric conditions we populate the atomistic structures of CNM with oxygen and hydrogen using the extended <em>CarbOx</em> code illustrated in Figure 3. The code starts with the initial carbon structure and identifies edge and <em>sp$^2$</em> surface carbons. It treats them separately in two loops: <em>edge functionalisation</em> and <em>surface functionalisation</em>. The oxygen budget in the structure can be controlled via the following user inputs: 
+          <ul>
+            <li> Total O/C ratio: Controls the overall oxygen ratio with respect to all carbon atoms.</li>
+            <li> COOH probability: Probability of placing either a carboxyl or a carbonyl group at the edge.</li>
+            <li> Hydroxyl probability: Probability of placing either a hydroxyl or an epoxy group at the surface.</li>
+            <li> Coverage factor: Coverage factor of oxygen groups on the surface.</li>
+            <li> Edge probability: Probability of placing an oxygen group at the edge, fallback is hydrogen passivation.</li>
+          </ul>
+          The code generates structures that follow simple chemical heuristics. Besides allowing control of the oxygen functionalisation, the code can generate carbon structures that are passivated only with hydrogen. This is an important extension to the original code as hydrogen terminated carbon structures more closely represent real carbon networks (<a href="https://doi.org/10.1038/srep02086">Yang et al. (2013)</a>).
+          
+          Once we have generated our target structures with and without functionalisation, we use TurboGAP (<a href="https://turbogap.fi/wiki/index.php/TurboGAP">Caro et al. (2021)</a>) together with a CO-GAP (<a href="https://zenodo.org/records/10456068">Caro & Zarrouk (2024)</a>) and the XPS prediction pipeline (<a href="https://arxiv.org/abs/2402.03219">Zarrouk et al. (2024)</a>) to obtain core-electron binding energies (CEBEs) of each carbon atom's 1s level. In a typical quantitative analysis procedure, a narrow-scan spectrum in XPS is described by a sum of individual Voigt peaks. Each peak corresponds to a chemical state (see project on "Electron Spectra Simulation"). In current quantification procedures researchers rely on reference databases as reported for example in <a href="https://www.nist.gov/srd/nist-standard-reference-database-100">NIST SRD 100 SESSA</a> or the <a href="https://srdata.nist.gov/xps/">NIST X-Ray Photoelectron Spectroscopy Database (SRD 20)</a>. However, relying on reference databases can potentially lead to inaccurate results in the peak fitting due to the non-transferability of reference peak energies. A typical example of this issue is the fitting of the C 1s peak. Correct interpretation of binding energy shifts requires an understanding of the underlying mechanisms of initial-state effects, such as effective charge, chemical bonding or electrostatic potentials, and final-state effects arising from core-hole screening or polarisation effects. Moreover, shifts can arise not only due to intrinsic effects (material chemistry), but also due to extrinsic effects coming from the XPS instrument itself. Hence, we use <em>ab initio</em>-based approaches to calculate the core electron binding energies of atomistic systems using TurboGAP. In Figures 4 and 5, we compare the obtained peak shapes for the four most promising structures with experimental data of pristine and atmosphere-exposed CNMs. This allows us to accurately identify the chemical fingerprints in the experimental data using underlying atomistic structures.   
+          </p>
+
+          <h2>Outlook</h2>
+          <p>This work outlines how <em>ab initio</em>-based workflows can be utilised for an in-depth quantitative analysis of XPS narrow-scan measurements, specifically for the C 1s peak, without relying too heavily on reference data. We directly obtain chemical shift and chemical state information from the predicted distribution (spectrum) of CEBEs requiring only the instrumental broadening as an input parameter. While the results achieved for the pristine CNMs confirm results obtained from other experiments (<a href="https://doi.org/10.1021/acs.jpcc.5c08242"> Vuković et al. (2025)</a>), a larger deviation in the residual (Fig. 5) is observable. This is due to the missing relaxation step after functionalisation, as no general COH-GAP is available. In a first attempt to improve the results, other potentials such as ReaxFF might help to improve the interpretation of the experimental data of atmosphere-exposed CNMs.</p>
+          
+
+          <h2>Gallery</h2>
+          <!-- To use a real image, replace a placeholder div with:
+               <img src="../assets/img/projects/your-image.jpg" alt="Describe the image"> -->
+          <div class="gallery">
+            <figure class="wide">
+              <img src="../assets/img/projects/SAM2CNM_woSE.jpg" alt="SAM to CNM"  style="aspect-ratio:auto">
+              <figcaption>Figure 1: Electron bombardment of a self-assembled monolayer leading to the formation of a carbon nanomembrane through crosslinking in the carbon network (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/cnm_structures_table_ase.jpg" alt="CNM structures"  style="aspect-ratio:auto">
+              <figcaption>Figure 2: A collection of carbon nanomembranes retrieved from a molecular dynamics simulation in LAMMPS using EDIP and the cylinder exclusion method to simulate varying porosity together with different time steps in the heating process (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/CarbOx_Flowchart.jpg" alt="CarbOx code flowchart"  style="aspect-ratio:auto">
+              <figcaption>Figure 3: CarbOx code flowchart designed for covalent functionalisation of a carbon network by adding hydroxyl, epoxy, carbonyl and carboxyl groups to the edge and surface of the structure (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/top4_fits_with_residuals_and_fit_ase.jpg" alt="Four best structures fitting experiment, pristine"  style="aspect-ratio:auto">
+              <figcaption>Figure 4: Extracting the four best predicted C 1s peaks in comparison to a measurement of the C 1s peak for pristine CNMs (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/top4_fits_with_residuals_and_oxygen.jpg" alt="Four best structures fitting experiment, atmosphere"  style="aspect-ratio:auto">
+              <figcaption>Figure 5: Extracting the four best predicted C 1s peaks for functionalised CNMs in comparison to a measurement of the C 1s peak for atmosphere-exposed CNMs (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <ul class="facts">
+          <li><strong>Role</strong>Contributor and Code Developer</li>
+          <li><strong>Year</strong>2025-ongoing</li>
+          <li><strong>Tools</strong>LAMMPS, TurboGAP, Python, ASE, OVITO, VMD</li>
+          <li><strong>Links</strong><a href="https://github.com/Fuzz-Muffin/CarbOx/tree/main">CarbOx Code</a> &middot; Code (not yet published) &middot; <a href="https://repositum.tuwien.at/handle/20.500.12708/230752">Thesis</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Florian Simperl. All rights reserved.</span>
+      <span class="social"><a href="https://github.com/floriansimperl">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/projects.js"></script>
+  <script src="../assets/js/blog.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+</body>
+</html>

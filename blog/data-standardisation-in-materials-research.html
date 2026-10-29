@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Standardisation in Materials Research | Florian Simperl</title>
+  <meta name="description" content="How can we make materials research data AI-ready?">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+</head>
+<body>
+
+  <header class="nav is-solid" id="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">Florian<span>Simperl</span></a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#references">References</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-head">
+    <div class="container">
+      <h1>Data Standardisation in Materials Research</h1>
+      <p><time datetime="2026-10-27">27 October 2026</time> &middot; Florian Simperl</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <a href="../index.html#blog" class="back">&larr; Back to blog</a>
+
+      <article class="article">
+        <p class="article__lead">As Large Language Models and AI agents are increasingly integrated into scientific research pipelines for data retrieval, interpretation and analysis, the need for findable, accessible, interoperable and reusable (FAIR [<a href="#ref-1">1</a>]) data, built on community-driven standardisation efforts, has never been greater. Only such data can ensure the correctness, quality and integrity of research.</p>
+
+        <h2>Introduction</h2>
+        <p>In this blog post, I will focus on the work done by the FAIRmat consortium, in particular on the <em>pynxtools</em> package [<a href="#ref-2">2</a>], to which I have contributed and with which I have worked as part of my PhD research on quantitative X-ray photoelectron spectroscopy (XPS). Nowadays, a complete raw dataset supporting the claims and conclusions of a publication is increasingly expected and, in some cases, mandated by funders and journals. I would go as far as saying that research data are at least as important as the published article itself. But data is not just data. It may be unusable and not machine-readable because of its structure, because of local standards that researchers use without any clear logic, or, in some cases, because of an unwillingness to share a complete set of raw data. When performing an experiment or a simulation, researchers typically report their data in a variety of formats, ranging from simple text files to more complex hierarchical or structured formats. In experimental research it is also common to record information as handwritten notes in a lab notebook. To share data in a useful way, researchers must provide all of this contextual information in a meaningful, comprehensive and standardised form. This contextual information is called metadata. The more comprehensive the metadata, the easier it is to understand the reported data. For example, when reporting an XPS measurement and its analysis, I need to describe the complete experimental setup, including the source, the detector and the sample position, as well as the sample parameters, including its preparation history. For the quantitative analysis, it is necessary to specify the individual fitted peak shapes, the model used for background subtraction and the sources of reference values. Without this information, reproducing an experiment or calculation can become very resource-demanding. And what good is research if it merely feeds the <a href="https://opusproject.eu/openscience-news/he-reproducibility-crisis-how-open-science-can-save-research/">reproducibility crisis</a> [<a href="#ref-3">3</a>]?</p>
+
+        <h2>The FAIR principles</h2>
+        <p>Community-driven standardisation efforts following a bottom-up approach are exactly what science needs to make data FAIR. This is the mission of the FAIRmat consortium [<a href="#ref-4">4</a>]: (i) to develop and maintain a data infrastructure following the FAIR principles for materials science, by providing tools and standards in support of scientific exchange, and (ii) to support the scientific community by defining research data management practices based on the FAIR principles. In the following, I will explore what it means to make data FAIR and how this prepares data for use by AI ("AI-ready"), and I will introduce best practices for researchers in the materials science community, from both a computational and an experimental perspective. The key pillars of FAIR are illustrated in Figure 1 and stand for the following:</p>
+
+        <ul>
+          <li><strong>Findable: </strong>Data and metadata should be linked to a globally unique and persistent identifier such as a digital object identifier (DOI), which is nowadays used to identify publications and datasets in repositories (e.g., Zenodo, TU Wien Research Data, NOMAD). A DOI allows other researchers not only to find your data even if its location changes, but also to reference it in their publications. Metadata and research data are typically two separate types of information, so it is also crucial to structure repositories in a way that the metadata carries a unique identifier linking it back to the corresponding dataset. Once such identifiers exist, researchers also need to be able to search for the data within the repository or through search engines that index the repository content. Rich metadata describing your data also makes it easier for others to find. Equally important as sharing your data is the license under which it is distributed. The topic of licensing deserves a separate blog entry [<a href="#ref-5">5</a>].</li>
+          <li><strong>Accessible: </strong>Imagine you stored all your research data together with accompanying metadata in a remote repository. While this data might be findable, it is not necessarily accessible. Accessibility means that data can be retrieved by its identifier through a standardised, open communication protocol, where authentication and authorisation are possible if required. The data may, for example, require special permission, a license or registration on a website. Accessible does not mean open, as some restrictions may be necessary, for example for confidential or personal data. Accessibility therefore means that data can be retrieved under well-defined conditions, with the aim of making data FAIR and as open as possible (and as closed as necessary), whenever legally and ethically possible. Ideally, the metadata remains available even if the data itself is no longer available.</li>
+          <li><strong>Interoperable: </strong>Data and metadata must be machine-readable and usable across tools and systems, i.e., (meta)data should use a formal, accessible, shared and broadly applicable language for representation. This is not the case, for example, for data in proprietary formats that require proprietary software to open, such as the .vms or .ibw files produced by some XPS instruments. The formal language should be shared by the scientific community and independent of individual researchers and institutions. The data should follow pre-defined vocabularies and ontologies. For example, the NeXus-based standard implemented in <em>pynxtools</em> provides community-defined (bottom-up) controlled vocabularies and application definitions. Ideally, (meta)data should be linked to other (meta)data, including a description of the relationships between datasets, to allow for a traceable history of the data and to enable correct citations.</li>
+          <li><strong>Reusable: </strong>Once all the previous aspects have been satisfied for your data, we reach the final goal: the research data and metadata are sufficiently described, licensed and structured to be reused. Reusability breaks down into four aspects (R1 to R1.3 in [<a href="#ref-1">1</a>]): richly described attributes, clear usage licenses, detailed provenance and adherence to community standards.</li>
+        </ul>
+
+        <figure>
+          <img src="../assets/img/blog/fair_principles.jpg" alt="FAIR Schematic">
+          <figcaption>Figure 1: The FAIR principles as defined by Wilkinson et al. (2016) [<a href="#ref-1">1</a>].</figcaption>
+        </figure>
+
+        <h2>The NOMAD Repository</h2>
+        <p>There are several research data repositories in the field of materials research, such as the Materials Project [<a href="#ref-6">6</a>], the Automatic FLOW for Materials Discovery (AFLOW) [<a href="#ref-7">7</a>] or Alexandria [<a href="#ref-8">8</a>]. Here, I will focus on the NOvel MAterials Discovery (NOMAD) repository [<a href="#ref-9">9</a>], which is operated by the FAIRmat consortium and, to my knowledge, is one of the few repositories that actively work on making both computational and experimental data FAIR. As a side note, an extensive list of databases used in the materials research community can be found on OPTIMADE [<a href="#ref-10">10</a>], a consortium of materials database providers aiming to make materials databases interoperable. In short, NOMAD is a free web service for researchers to share and use comprehensive materials data. Within NOMAD, there are also many built-in analysis tools in the form of Jupyter notebooks to directly analyse uploaded data. NOMAD archives and publishes data for free and assigns a DOI ("Findable") to uploaded datasets. At the same time, NOMAD also serves as a hub that provides access to other popular sources such as the Materials Project, AFLOW or Alexandria. At its core, NOMAD is not only for sharing files but for managing data in a well-organised architecture following defined schemas, which are the backbone of findability (search), accessibility (APIs), interoperability (converting data following defined ontologies) and reusability (running tools). NOMAD Metainfo is the schema within the repository that defines the hierarchical structure of the data, from a general, domain-independent superstructure to highly detailed information. The built-in parsers in NOMAD structure your uploaded data, and it is also possible to extend the existing schemas and contribute to their continuous development on GitHub.</p>
+
+        <h2><em>pynxtools</em>: Generating and validating files in experimental data workflows</h2>
+        <p>In short, <em>pynxtools</em> is a Python software development framework that standardises data conversion for experiments in atom probe tomography, electron microscopy, optical spectroscopy, photoemission spectroscopy, scanning probe microscopy and X-ray diffraction. It is based on the NeXus format [<a href="#ref-11">11</a>], which was initially conceived by an international group of scientists to define a common data exchange and archival format for neutron, X-ray and muon experiments. NeXus is built as an add-on to the widely used HDF5 by adding domain-specific rules to organise data within this hierarchical data format. <em>pynxtools</em> works by converting experimental data, together with metadata from instrument parameters and electronic lab notebooks, into NeXus files that conform to NeXus application definitions. An application definition is a standardised schema that specifies how data and metadata are organised within NeXus. The package is already used within NOMAD to assist users in converting experimental data into FAIR data, and <em>pynxtools</em> is available on GitHub [<a href="#ref-12">12</a>] to download or collaborator. NeXus application definitions are not treated as static documentation but as machine-actionable schemas that define the entire data processing and conversion flow. The plugin-based architecture decouples instrument-specific parsing logic (e.g., for a Scienta Omicron, SPECS, or ULVAC-PHI instrument) from specification-aware validation, i.e., checking whether the data produced by a file converter conform to the rules defined by the NeXus application definition they are supposed to follow. This enables modular growth without major code revisions, and the framework adapts easily to an evolving ecosystem of new techniques and instruments. There are two key components:</p>
+        <ol>
+          <li><strong>Template object: </strong>A subclass of Python's native dictionary serving as a template for reader plugins to fill. It embeds structural awareness of required, recommended and optional NeXus fields. It maps directly to JSON, allowing simple inspection and modification.</li>
+          <li><strong>dataconverter: </strong>The core module providing the actual conversion pipeline. It validates reader outputs against the NeXus application definitions, checking for required concepts, complex dependencies within the structured data, and data integrity. It combines instrument output files and data from electronic lab notebooks into NeXus-based HDF5 files. For developers (as implemented, for example, in SESSA v2.3), the dataconverter provides an abstract reader class for building plugins that process instrument-specific formats and populate the NeXus application definitions through the Template interface.</li>
+        </ol>
+        <p>In general, the complete workflow of <em>pynxtools</em> involves additional complexity compared to a simple instrument-specific converter, since plugin dependencies need to be handled explicitly and consistency between extensions needs to be accounted for. In addition, the Template requires more processing than simpler, format-specific conversion approaches. The benefit is that <em>pynxtools</em> serves as a validation framework that catches structural and data errors while parsing input data, which helps ensure interoperability and machine-readability across the different extensions of the package. <em>pynxtools</em> is also designed to work as a plugin for NOMAD, supporting NeXus and the features within this framework. For example, within NOMAD the parser enables validation, searching of experimental datasets and metadata linking. The Metainfo (NOMAD's data schema) is extended by <em>pynxtools</em> as a <em>Schema Package</em>, enabling interoperability with other data representations, as it retrieves data entries from NeXus HDF5 files (.nxs) to populate NOMAD with Metainfo object instances. In the NOMAD pipeline, this data is then "normalised" in a step that includes automatic handling of units, linking of references and population of derived quantities.</p>
+
+        <h3>Example for XPS: <em>pynxtools-xps</em> [<a href="#ref-13">13</a>]</h3>
+        <p><em>pynxtools-xps</em> is based on the <strong><a href="https://fairmat-nfdi.github.io/nexus_definitions/classes/applications/NXxps.html#nxxps">NXxps</a></strong> application definition, which is a direct extension of <strong><a href="https://fairmat-nfdi.github.io/nexus_definitions/classes/applications/NXmpes.html#nxmpes">NXmpes</a></strong>, which in turn derives from the base class <strong><a href="https://fairmat-nfdi.github.io/nexus_definitions/classes/base_classes/NXobject.html#nxobject">NXobject</a></strong>. It is a reader plugin for <em>pynxtools</em> written in Python and takes as input data in proprietary formats from various instrument manufacturers, as well as open data formats from partnering research facilities, covering the wider XPS community, and converts them into NeXus files that comply with the <em>NXmpes</em> and <em>NXxps</em> application definitions. It can be used as a standalone reader to parse data, either from the corresponding GitHub repository or directly as a Python package, and it also ships directly with NOMAD. As part of my research and in collaboration with Scienta Omicron, I contributed example files of the new PEAK software from Scienta Omicron and rewrote the parser to also process the native HDF5 files from PEAK. Additionally, I added support to SESSA v2.3 [<a href="#ref-14">14</a>] for exporting output files that follow the NXxps application definition, with some SESSA-specific modifications (see the manual of SESSA v2.3 [<a href="#ref-15">15</a>]).</p>
+
+        <h2><em>nomad-simulations</em>: Standards for computational materials science [<a href="#ref-16">16</a>]</h2>
+        <p><em>nomad-simulations</em>, similar to <em>pynxtools</em>, is an open-source Python package for managing materials-science simulation data, following the plugin architecture of NOMAD. Similarly, the package provides section definitions (analogous to application definitions), i.e., Python classes with quantities and methods that allow users to extract and structure data from a variety of simulation codes (ORCA, GROMACS, VASP, LAMMPS, etc.). Likewise, it provides reusable core sections that can be adapted for code-specific and domain-specific schemas while preserving consistent structure, interoperability and discoverability. The entry point to the structure is the <code>Simulation</code> definition, which describes a computational calculation that produces output data based on specific inputs (model system and model parameters). <code>BaseSimulation</code> and <code>EntryData</code> are the base sections of this structure, of which <code>model_system</code>, <code>model_method</code> and <code>outputs</code> are subsections. For example, in <code>BaseSimulation</code> we can specify information about the program used, such as its name (e.g., WIEN2k) or version (e.g., 2.0). The <code>ModelMethod</code> section contains input information such as the mathematical model you are solving (e.g., a Hamiltonian). Numerical parameters for the evaluation of this model are stored separately under <code>numerical_settings</code>. For a self-consistent calculation, for example, you would define the convergence threshold, or you can specify k-space parameters such as the k-mesh. As another example, <code>DFT</code> is a base section of <code>model_method</code> that can be used to define the parameters of a density functional theory (DFT) calculation. It contains an entry <code>jacobs_ladder</code> specifying the highest rung of Jacob's ladder (the hierarchy of density functional approximations) present among the exchange-correlation components. Other methods include, for example, "ForceField", "DMFT" (dynamical mean-field theory), "BSE" (Bethe-Salpeter equation) and "GW" (the GW approximation). Next, we have the <code>ModelSystem</code>, which contains information about the atomic positions of the atoms or entities in the system. It can be nested within itself to represent different levels of a hierarchical structure and thereby describe complex material structures (e.g., a heterostructure). This section also contains entries about the simulated cell, the atomic state (chemical symbol, atomic number, orbitals, core hole, etc.), the orbital state (quantum numbers, occupation, degeneracy) and the chemical formula, among many more. Last but not least, there is the output section, which contains information on the calculated properties (e.g., band gap, density of states). It is designed so that calculated properties can be compared directly with experimental observables.</p>
+
+        <h2>Conclusion</h2>
+        <p>To conclude, I have presented tools that are already available and that allow you not only to share your measurements as single files, but to make your data FAIR and AI-ready. Since the FAIRmat consortium follows a bottom-up approach, starting with the needs of the research community, it is possible to adopt their standardisation suggestions and to contribute your own ideas for your specific field. As the cartoon below reminds us, new standards can also add to the proliferation of competing standards, which is why community-driven development and adoption matter. In a next phase, it will be important for the broader community to adopt these standards and to start training large-scale machine learning models on data that follow them, in order to exploit the richness of the information they contain and drive a new generation of materials discovery, experimental investigation and analysis. For further information and tutorials I highly recommend following the YouTube Videos uploaded by the FAIRmat consortium where they show hands-on applications of everything covered here, e.g. <a href="https://www.youtube.com/watch?v=Xdgh99S91Qg&t=810s"><em>pynxtools</em></a>, <a href="https://www.youtube.com/watch?v=qf5bkTetX68"><em>nomad-simulations</em></a> or <a href="https://www.youtube.com/watch?v=XGZESuLZtJ4"><em>FAIR data management</em></a>. </p>
+
+        <figure>
+          <img src="../assets/img/blog/xkcd_standards.png" alt="XKCD Standards">
+          <figcaption>Figure 2: Developing new data standards. Source: <a href="https://xkcd.com/927">How standards proliferate</a> by Randall Munroe (xkcd, CC BY-NC 2.5).</figcaption>
+        </figure>
+
+        <h2>References</h2>
+        <ol class="refs">
+          <li id="ref-1">Wilkinson et al. (2016). <a href="https://doi.org/10.1038/sdata.2016.18">The FAIR Guiding Principles for scientific data management and stewardship</a>. <em>Scientific Data</em> 3, 160018.</li>
+          <li id="ref-2">Shabih et al. (2026). <a href="https://doi.org/10.21105/joss.10691">pynxtools: A Python framework for generating and validating NeXus files in experimental data workflows</a>. <em>Journal of Open Source Software</em>.</li>
+          <li id="ref-3">Baker (2016). <a href="https://doi.org/10.1038/533452a">1,500 scientists lift the lid on reproducibility</a>. <em>Nature</em> 533, 452&ndash;454.</li>
+          <li id="ref-4">Scheffler et al. (2022). <a href="https://doi.org/10.1038/s41586-022-04501-x">FAIR data enabling new horizons for materials research</a>. <em>Nature</em> 604, 635&ndash;642.</li>
+          <li id="ref-5">Labastida and Margoni (2020). <a href="https://doi.org/10.1162/dint_a_00042">Licensing FAIR Data for Reuse</a>. <em>Data Intelligence</em> Volume 2, 199&ndash;207.</li>
+          <li id="ref-6">Jain et al. (2013). <a href="https://doi.org/10.1063/1.4812323">Commentary: The Materials Project: A materials genome approach to accelerating materials innovation</a>. <em>APL Materials</em> 1, 011002.</li>
+          <li id="ref-7">Calderon et al. (2015). <a href="https://doi.org/10.1016/j.commatsci.2015.07.019">The AFLOW standard for high-throughput materials science calculations</a>. <em>Computational Materials Science</em> 108, 233&ndash;238.</li>
+          <li id="ref-8">Cavignac et al. (2026). <a href="https://doi.org/10.1088/2515-7639/ae6620">AI-driven expansion and application of the Alexandria database</a>. <em>J. Phys. Mater.</em>9, 025014.</li>
+          <li id="ref-9">Scheidgen et al. (2023). <a href="https://doi.org/10.21105/joss.05388">NOMAD: A distributed web-based platform for managing materials science research data</a>. <em>Journal of Open Source Software</em> 8(90), 5388.</li>
+          <li id="ref-10">Andersen et al. (2021). <a href="https://doi.org/10.1038/s41597-021-00974-z">OPTIMADE, an API for exchanging materials data</a>. <em>Scientific Data</em> 8, 217.</li>
+          <li id="ref-11">K&ouml;nnecke et al. (2015). <a href="https://doi.org/10.1107/S1600576714027575">The NeXus data format</a>. <em>Journal of Applied Crystallography</em> 48, 301&ndash;305.</li>
+          <li id="ref-12"><a href="https://github.com/FAIRmat-NFDI/pynxtools"><em>pynxtools</em> on GitHub</a>.</li>
+          <li id="ref-13"><a href="https://github.com/FAIRmat-NFDI/pynxtools-xps/"><em>pynxtools-xps</em> on GitHub</a>.</li>
+          <li id="ref-14">Werner et al. (2026). <a href="https://www.nist.gov/srd/nist-standard-reference-database-100">NIST Standard Reference Database 100</a>.</li>
+          <li id="ref-15">Werner et al. (2026). <a href="https://doi.org/10.6028/NIST.NSRDS.100-2026">NIST National Standard Reference Data Series NIST NSRDS 100: Simulation of Electron Spectra for Surface Analysis (SESSA) Version 2.3 User's Guide</a>.</li>
+          <li id="ref-16"><a href="https://github.com/FAIRmat-NFDI/nomad-simulations"><em>nomad-simulations</em> on GitHub</a>.</li>        
+        </ol>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Florian Simperl. All rights reserved.</span>
+      <span class="social"><a href="https://github.com/floriansimperl">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/projects.js"></script>
+  <script src="../assets/js/blog.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Florian Simperl</title>
+  <meta name="description" content="Reliable scientific software, FAIR data, and computational and machine learning methods that help turn research into discovery">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="nav__brand">Florian<span>Simperl</span></a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#references">References</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="container hero__content">
+      <h1>Building the <em>Tools</em> behind <em>Discovery</em></h1>
+      <p>Reliable scientific software, FAIR data, and computational and machine learning methods that help turn research into discovery</p>
+      <a href="#about" class="btn btn--primary">About Me</a>
+      <a href="#contact" class="btn btn--ghost">Get in touch</a>
+    </div>
+    <a href="#about" class="hero__scroll" aria-label="Scroll down">&#8964;</a>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section__head">
+        <h2>About Me</h2>
+        <p>Who I am and what motivates me</p>
+      </div>
+      <div class="about">
+        <div class="about__text">
+          <p>I am an applied physicist working on computational methods for X-ray photoelectron (XP) and electron spectroscopy. My work includes materials modelling with machine-learned interatomic potentials, Monte Carlo simulations of electron transport in solids (NIST SRD 100 SESSA), deep learning models for quantitative XPS and data standardisation efforts for XPS and materials research in general. </p>
+          <p>I am especially passionate about making research data FAIR (findable, accessible, interoperable and reusable) to which end I have worked on data standardisation schemas with the FAIRmat consortium and implemented NeXus-based data standards in my own scientific analysis workflows and related publications. I want to make research data truly AI-ready, so we can use the full potential of novel AI models in science to enable new discoveries.</p>
+          <p>Besides my research work, I am passionate about mountaineering and being awestruck by the glaciers as long as they are still around. I also enjoy working on small Arduino projects and going out for wildlife and nature photography.</p>
+          <!--<ul class="skills">
+            <li><span>Design</span><div class="bar"><i data-value="90"></i></div></li>
+            <li><span>Development</span><div class="bar"><i data-value="85"></i></div></li>
+            <li><span>Marketing</span><div class="bar"><i data-value="70"></i></div></li>
+          </ul>-->
+        </div>
+        <div class="about__image" role="img" aria-label="About image placeholder"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section section--grey" id="skills">
+    <div class="container">
+      <div class="section__head">
+        <h2>Skills</h2>
+        <p>What I can do for you</p>
+      </div>
+      <div class="grid grid--3">
+        <article class="card service"><div class="icon">&#9881;</div><h3>Scientific Software Development</h3><p>Build reliable, maintainable scientific code in Python, C++ and Bash with best practices, agentic AI platforms and modern Git flows. Cross-platform releases for Windows, macOS and Linux.</p></article>
+        <article class="card service"><div class="icon">&#9998;</div><h3>Publish Research and Software</h3><p>Publish peer-reviewed research, present at conferences, write comprehensive user manuals and disseminate software through easy-to-follow tutorials.</p></article>
+        <article class="card service"><div class="icon">&#10042;</div><h3>Scientific Computing</h3><p>High performance computing with SLURM and MPI, COMSOL Multiphysics, OVITO, ASE and VMD for materials modelling.</p></article>
+        <article class="card service"><div class="icon">&#9776;</div><h3>Data Management and Engineering</h3><p>Data analysis workflows in Python (NumPy, SciPy, Pandas, scikit-image, scikit-learn, matplotlib, plotly, seaborn), FAIR data principles, ML-ready data engineering. Familiar with NOMAD and the Materials Project.</p></article>
+        <article class="card service"><div class="icon">&#8711;</div><h3>Machine Learning</h3><p>PyTorch Lightning, PyTorch, TensorFlow, Ray Tune, Weights &amp; Biases, GPU-accelerated training on HPC systems, and experience with Transformers and CNNs for quantitative spectroscopy.</p></article>
+        <article class="card service"><div class="icon">&#9762;</div><h3>Physics</h3><p>Computational and experimental surface science (XPS, LEEM, TR-PEEM, SE2ECLS, (R)EELS), Ultrafast Laser Physics, Coherent Diffractive Imaging, Phenomenology of Particle Physics, Quantum Gases and Statistical Physics.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Counters -->
+  <section class="counters">
+    <div class="container grid grid--4">
+      <div><strong data-count="6">0</strong><span>Published Research Articles</span></div>
+      <div><strong data-count="3">0</strong><span>Published Software</span></div>
+      <div><strong data-count="1">0</strong><span>Published Datasets</span></div>
+      <div><strong data-count="25">0</strong><span>Citations</span></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section__head">
+        <h2>Latest Projects</h2>
+        <p>A selection of recent work</p>
+      </div>
+      <div class="grid grid--4 projects">
+        <a href="projects/electron-spectra-simulation.html" class="project" style="--h:200"><img src="assets/img/projects/example_spectrum.jpg" alt=""><span>Simulation of Electron Spectra</span></a>
+        <a href="projects/cnm-xps.html" class="project" style="--h:260"><img src="assets/img/projects/cnm_structures.jpg" alt=""><span>Carbon nanomembrane fingerprints in XPS</span></a>
+        <a href="projects/photoemission-electron-microscopy.html" class="project" style="--h:320"><img src="assets/img/projects/phase_map.jpg" alt=""><span>Photoemission electron microscopy</span></a>
+        <a href="projects/ml-driven-xps.html" class="project" style="--h:160"><img src="assets/img/projects/ml_workflow.jpg" alt=""><span>Machine Learning-Driven Quantitative XPS</span></a>
+        <!--<a href="#" class="project" style="--h:160"><span>Materials discovery pipeline </span></a>
+        <a href="#" class="project" style="--h:30"><span>Project Five</span></a>
+        <a href="#" class="project" style="--h:280"><span>Project Six</span></a>-->
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="references">
+    <div class="container">
+      <div class="section__head section__head--light">
+        <h2>References</h2>
+        <p>What my supervisors and collaborators say</p>
+      </div>
+      <div class="slider" id="slider">
+        <blockquote class="slide is-active">
+          <p>“On top of all these achievements Florian is an extremely enthusiastic team worker, always friendly, always willing to help, even at times of great personal pressure, never refusing to put his extensive skill set to the help of his peers.”</p>
+          <cite>Professor Wolfgang Werner, PhD Supervisor at TU Wien</cite>
+        </blockquote>
+        <blockquote class="slide">
+          <p>“Florian showed an impressive curiosity and motivation to learn more about the tasks he was assigned to. He then used this knowledge to suggest and implement his own ideas to improve current workflows and processes from which the company will highly benefit in the future.”</p>
+          <cite>Dr. Jérôme Zemp, Senior R&D Engineer at MaxWell Biosystems AG</cite>
+        </blockquote>
+        <blockquote class="slide">
+          <p>“I would also like to emphasise Florian's excellent interpersonal and organisational skills. He is an open, respectful, and highly constructive colleague, who listens carefully, asks thoughtful questions, and contributes positively to the work of the entire group.”</p>
+          <cite>Dr. Alessandra Bellissimo, Collaborator at TU Wien and HUN-REN Wigner Research Centre for Physics</cite>
+        </blockquote>
+        <div class="slider__dots" id="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section__head">
+        <h2>Latest Blog Entries</h2>
+        <p>Stories, updates and insights</p>
+      </div>
+      <div class="grid grid--3 posts" data-latest="3">
+        <article class="card post"><div class="post__img"></div><div class="post__body"><img src="assets/img/blog/nomad_logo.jpg" alt=""><time>27 Oct 2026</time><h3>Data Standardisation in Materials Research</h3><p>.</p><a href="blog/data-standardisation-in-materials-research.html">Read more &rarr;</a></div></article>
+        <!--<article class="card post"><div class="post__img"></div><div class="post__body"><time>10 Oct 2026</time><h3>Materials Discovery Startups: What are they doing?</h3><p>A brief summary on how they work and what they do.</p><a href="#">Read more &rarr;</a></div></article>
+        <article class="card post"><div class="post__img"></div><div class="post__body"><time>01 Oct 2026</time><h3>Five Design Tips</h3><p>Small changes that make a big difference to your website.</p><a href="#">Read more &rarr;</a></div></article>-->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section--grey" id="contact">
+    <div class="container">
+      <div class="section__head">
+        <h2>Get in Touch</h2>
+        <p>I'd love to hear from you</p>
+      </div>
+      <div class="contact">
+        <div class="form">
+          <p>Have a question or a project in mind? Send me an email and I'll get back to you as soon as I can.</p>
+          <a href="mailto:fsimperl@hotmail.com" class="btn btn--primary">Send an email</a>
+        </div>
+        <ul class="contact__info">
+          <li><strong>Email</strong><a href="mailto:fsimperl@hotmail.com">fsimperl@hotmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Florian Simperl. All rights reserved.</span>
+      <span class="social"><a href="https://github.com/floriansimperl">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/projects.js"></script>
+  <script src="assets/js/blog.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

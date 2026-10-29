@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photoemission Electron Microscopy | Florian Simperl</title>
+  <meta name="description" content="Simulation of electron spectra for surface analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+
+</head>
+<body>
+
+  <header class="nav is-solid" id="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__brand">Florian<span>Simperl</span></a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#references">References</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-head">
+    <div class="container">
+      <h1>Photoemission Electron Microscopy</h1>
+      <p>Extracting photoemission delays from time-resolved PEEM using the RABBITT technique</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <a href="../index.html#projects" class="back">&larr; Back to projects</a>
+
+      <div class="detail">
+        <div>
+          <h2>Overview</h2>
+          <p>Attosecond time-resolved photoelectron emission spectroscopy in condensed matter systems opens a new pathway to study ultrafast electron dynamics and related excitation phenomena. In this work, we investigate the temporal evolution of direct photoelectron emission events originating from different regions in the valence band (VB). The main focus of this project is to establish an exploratory analysis framework with which the complete phase space measured in the experiment can be explored. The software can be used to retrieve the relative electron phase difference from the observed optical transitions to reveal the time delay between photoemission processes and related band structure phenomena. </p>
+
+          <h2>Experimental Results</h2>
+          <p>The experiments in this project were performed with a single-crystal graphite surface (SCG 0001) extracted from a natural source, specifically from meteorite flakes. The instrument used was a photoemission electron microscope (PEEM) at the NanoESCA endstation (<a href="https://doi.org/10.1088/0953-8984/17/16/004">Escher et al. (2005)</a>) at the Extreme Light Infrastructure Attosecond Light Pulse Source (ELI-ALPS) Facility in Szeged, Hungary. An extreme ultraviolet (XUV) pump and an infrared (IR) probe beam were used in a pump-probe setup. The technique to observe photoemission processes on the attosecond timescale is known as the Reconstruction of Attosecond Beating By Inference of Two-photon Transitions (RABBITT) and was used to retrieve the phase and amplitude of the photoemitted electrons. Originally, the RABBITT technique was introduced to study the phase difference between two subsequent odd-ordered harmonic components (so-called attochirps) to characterise an attosecond pulse train. Eventually, it was established as a technique to resolve electron dynamics in the attosecond time domain by decomposing the phase information and retrieving atomic phase information (Nobel Prize in 2023, <a href="https://doi.org/10.1038/ncomms10566">Kotur et al. (2016))</a>. In Figure 1, a typical gas-time-of-flight beating pattern is shown consisting of a selection of main- and sidebands. The XUV beam ionises the system and excites valence electrons from the ground state into the continuum. These direct photoemission events are visible in a RABBITT spectrum as so-called mainbands, which yield the intensity distribution of the direct optical transitions. The IR dressing field induces a second transition which lets the excited electron absorb or emit an additional photon leading to a change of energy by $\pm \hbar\omega_{IR}$ giving rise to the sideband (SB) features. Essentially, this technique acts as a two quantum paths interferometer, since each considered final state or sideband can be reached by two pathways highlighted by blue and red arrows in Figure 1. These two quantum paths interfere with each other, which can be observed as a delay in the attosecond pulse train relative to the IR field. The intensity of the sidebands oscillates, which is the hallmark of the RABBITT process, with an oscillation period of $T/2$ with $T$ being the period of the fundamental laser field. In our experiment, the optical cycle of the driving laser field is 3.44 fs, therefore the RABBITT oscillation has a period of 1.72 fs. In atomic-like (gas-phase) RABBITT it is straightforward to identify SB features, albeit their analysis and interpretation can be challenging. In graphite, the situation is much more complex as seen by its complicated band structure (<a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>). Since many electrons from different occupied states can contribute to sideband features, great care is required in selecting the right set of harmonics (energies) responsible for the photoemission process. Ideally, only one distinct region (e.g., the M-point) in the band structure should lie in the same SB window to produce a RABBITT-like pattern. In our experiment we use two sets of harmonics (#51 to #59 and #31 to #39). Each measurement consists of 360 individual images, recorded at a rate of one image every 10 seconds. For the total temporal window covered by the drift, one expects to observe approximately six RABBITT oscillations.</p>
+
+          <h2>Data Analysis Pipeline</h2>
+          <p>In Figure 2 we see the data processing algorithm created to analyse the time- and momentum-resolved RABBITT measurements. The algorithm will soon be published as a GUI and Python code. It starts by importing a set of time-dependent measurements consisting of delay scans. First, a constant background from the detector is subtracted from each image. Second, a discrete convolution on each image is applied by passing a circular filter with a diameter of 100 px across the images. Third, the data is normalised according to the total field of view over all intensity values. Fourth, a second-degree polynomial is applied across each scan series to account for beam drifts and other systematic effects. Fifth, the average M-point oscillation is used to calibrate the timescale of the measurement by fitting the RABBITT function and extracting $t(x)$, a second-degree polynomial, where $x$ is the delay scan number. Last but not least, once this time function is calibrated we can fit the RABBITT function to each spot in the image extracting the relative phase at each point in momentum space. This results in a $k$-space-dependent phase map across each measurement highlighting a phase drift across different $M$ points in clockwise direction as seen in Figure 3.</p>
+
+          <h2>Outlook</h2>
+          <p>Given that opposite M-points are symmetry-equivalent, the persistence of these differences in their phase indicates a genuine physical anisotropy in the photoemission process rather than a fitting artefact or statistical fluctuation. This anisotropy reflects a momentum-dependent photoemission phase, likely arising from directional variations in the dipole matrix elements and/or final-state scattering, and demonstrates that electron emission dynamics in graphite are inherently $k$-dependent. However, additional theoretical work is required to further improve our understanding of the time-dependent photoemission process observed in this project. </p>
+          
+
+          <h2>Gallery</h2>
+          <!-- To use a real image, replace a placeholder div with:
+               <img src="../assets/img/projects/your-image.jpg" alt="Describe the image"> -->
+          <div class="gallery">
+            <figure class="wide">
+              <img src="../assets/img/projects/HHG_RABBIT.jpg" alt="HHG RABBIT"  style="aspect-ratio:auto">
+              <figcaption>Figure 1: A typical gas-phase time-of-flight spectrum of individual harmonics together with a schematic of the RABBITT process (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/data_workflow.jpg" alt="Data Workflow"  style="aspect-ratio:auto">
+              <figcaption>Figure 2: The data analysis workflow implemented in Python to retrieve the phase map in k-space from time-resolved measurements at the NanoESCA endstation (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+            <figure class="wide">
+              <img src="../assets/img/projects/phase_map_phi.jpg" alt="Phase Map Phi"  style="aspect-ratio:auto">
+              <figcaption>Figure 3: The extracted phase map from fitting the RABBITT function across a series of delay scan measurements to retrieve the time dependency of the photoemission process (from <a href="https://doi.org/10.34726/hss.2026.133296">Simperl (2026)</a>).</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <ul class="facts">
+          <li><strong>Role</strong>Experiment and Code Developer</li>
+          <li><strong>Year</strong>2024-ongoing</li>
+          <li><strong>Experiments</strong>RABBITT, NanoESCA, PEEM</li>
+          <li><strong>Tools</strong>Python</li>
+          <li><strong>Links</strong><a href="https://doi.org/10.34726/hss.2026.133296">Thesis</a> &middot; Code (not yet published) </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Florian Simperl. All rights reserved.</span>
+      <span class="social"><a href="https://github.com/floriansimperl">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/projects.js"></script>
+  <script src="../assets/js/blog.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+</body>
+</html>
