@@ -4,7 +4,10 @@ One-page business template for GitHub Pages, inspired by the Illdy WordPress the
 
 ## Sections
 
-Hero, About (with skill bars), Services, Counters, Projects, Team, Testimonials (slider), News, Contact and Footer.
+Header, About, Statistics, Projects, References, Blog, Contact and Footer.
+
+## Subsections
+Projects and Blog have their separate pages.
 
 ## Customize
 
